@@ -8,8 +8,12 @@ class Puzzel:
         self.oplossing = oplossing
         self.max_punten = max_punten
 
+def maak_hintlijst(self):
+    if list(self.hints) is None:
+        self.hints = []
+
 def voeg_hint_toe(self, hint:Hint):
-    
+    self.hints.append(hint)
 
 
 def get_titel(self):
