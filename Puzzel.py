@@ -1,4 +1,4 @@
-import Hint
+from Hint import Hint
 
 
 class Puzzel:

@@ -3,5 +3,5 @@ class Hint:
         self.tekst = tekst
         self.strafpunten = strafpunten
 
-def get_strafpunten(self):
-    return self.strafpunten
+    def get_strafpunten(self):
+        return self.strafpunten

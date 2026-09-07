@@ -1,4 +1,4 @@
-import Puzzel
+from Puzzel import Puzzel
 
 
 class Escaperoom:
