@@ -7,17 +7,13 @@ class Puzzel:
         self.opdracht = opdracht
         self.oplossing = oplossing
         self.max_punten = max_punten
-
-def maak_hintlijst(self):
-    if list(self.hints) is None:
         self.hints = []
 
-def voeg_hint_toe(self, hint:Hint):
-    self.hints.append(hint)
+    def voeg_hint_toe(self, hint:Hint):
+        self.hints.append(hint)
 
+    def get_titel(self):
+        return self.titel
 
-def get_titel(self):
-    return self.titel
-
-def get_max_punten(self):
-    return self.max_punten
+    def get_max_punten(self):
+        return self.max_punten
