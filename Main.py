@@ -14,6 +14,9 @@ def main():
     room1.voeg_puzzel_toe(puzzel1)
 
     rooms = [room1]
+    gekozen_room = rooms[keuze - 1]
+    keuze = input(int("Kies een room: "))
+    print(gekozen_room)
 
     for nummer, room in enumerate(rooms, start=1):
         print(f"{nummer}. {room.get_naam()}")

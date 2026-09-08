@@ -1,0 +1,3 @@
+commit_log.txt
+*.pyc
+__pycache__/

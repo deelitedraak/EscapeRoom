@@ -7,10 +7,10 @@ class Puzzel:
         self.opdracht = opdracht
         self.oplossing = oplossing
         self.max_punten = max_punten
-        self.hints = []
+        self.hint_lijst = []
 
     def voeg_hint_toe(self, hint:Hint):
-        self.hints.append(hint)
+        self.hint_lijst.append(hint)
 
     def get_titel(self):
         return self.titel

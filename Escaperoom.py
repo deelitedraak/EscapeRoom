@@ -6,13 +6,13 @@ class EscapeRoom:
         self.naam = naam
         self.thema = thema
         self.tijdslimiet = tijdslimiet
-        self.puzzels = []
+        self.puzzel_lijst = []
 
     def voeg_puzzel_toe(self, puzzel:Puzzel):
-        self.puzzels.append(puzzel)
+        self.puzzel_lijst.append(puzzel)
 
     def get_puzzels(self):
-        return self.puzzels
+        return self.puzzel_lijst
 
     def get_naam(self):
         return self.naam
@@ -21,15 +21,15 @@ class EscapeRoom:
 
         puzzel_info_lijst = []
 
-        for nummer, puzzel in enumerate(self.puzzels, start=1):
+        for nummer, puzzel in enumerate(self.puzzel_lijst, start=1):
             puzzel_info = f"Puzzel {nummer}:\n{puzzel}\n"
             puzzel_info_lijst.append(puzzel_info)
 
-        puzzel_lijst = "\n".join(puzzel_info_lijst)
+        room_puzzels = "\n".join(puzzel_info_lijst)
 
         return (
             f"Naam: {self.naam}\n"
             f"Thema: {self.thema}\n"
             f"Tijdslimiet: {self.tijdslimiet}\n"
-            f"Puzzels:\n{puzzel_lijst}"
+            f"Puzzels:\n{room_puzzels}"
         )
