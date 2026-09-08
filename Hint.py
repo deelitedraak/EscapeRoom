@@ -5,3 +5,9 @@ class Hint:
 
     def get_strafpunten(self):
         return self.strafpunten
+
+    def __str__(self):
+        return (
+            f"Hint: {self.tekst}\n"
+            f"Strafpunten: {self.strafpunten}\n"
+        )

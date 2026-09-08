@@ -17,3 +17,10 @@ class Puzzel:
 
     def get_max_punten(self):
         return self.max_punten
+
+    def __str__(self):
+        return (
+            f"Titel: {self.titel}\n"
+            f"Opdracht: {self.opdracht}\n"
+            f"Maximale punten: {self.max_punten}\n"
+        )
