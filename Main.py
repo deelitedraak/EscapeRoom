@@ -1,4 +1,4 @@
-from Escaperoom import EscapeRoom
+from EscapeRoom import EscapeRoom
 from Puzzel import Puzzel
 from Hint import Hint
 
@@ -13,13 +13,13 @@ def main():
     puzzel1.voeg_hint_toe(hint1)
     room1.voeg_puzzel_toe(puzzel1)
 
-    rooms = [room1]
-    gekozen_room = rooms[keuze - 1]
-    keuze = input(int("Kies een room: "))
-    print(gekozen_room)
-
     for nummer, room in enumerate(rooms, start=1):
         print(f"{nummer}. {room.get_naam()}")
+
+    rooms = [room1]
+    keuze = int(input("Kies een room: "))
+    gekozen_room = rooms[keuze - 1]
+    print(gekozen_room)
 
 if __name__ == "__main__":
     main()
