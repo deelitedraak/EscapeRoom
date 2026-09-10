@@ -1,5 +1,5 @@
 from Hint import Hint
-
+from Spelsessie import Spelsessie
 
 class Puzzel:
     def __init__(self, titel, opdracht, oplossing, max_punten):
@@ -24,3 +24,20 @@ class Puzzel:
             f"Opdracht: {self.opdracht}\n"
             f"Maximale punten: {self.max_punten}\n"
         )
+
+    def controleer_oplossing(self, antwoord):
+        return antwoord.upper() == self.oplossing.upper()
+
+    def bereken_punten(self, aantal_gebruikte_hints):
+        punten = self.max_punten
+
+        for hint in self.hint_lijst[:aantal_gebruikte_hints]:
+            punten -= hint.get_strafpunten()
+
+        return max(0, punten)
+
+    def get_hint(self, index):
+        if 0 <= index < len(self.hint_lijst):
+            return self.hint_lijst[index]
+        return None
+        

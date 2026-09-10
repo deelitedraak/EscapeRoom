@@ -27,8 +27,7 @@ def main():
     puzzel3 = Puzzel(
         "De Vier Wachters",
         "Vier beelden dragen een cijfer en een letter: "
-        "Jakhals 1=D, Baviaan 2=E, Valk 3=U, Mens 4=R. "
-        "Zet de letters in de volgorde 1 tot en met 4. "
+        "Muis D, Baviaan U, Olifant R, Valk E. "
         "Welk woord vormt de sleutel?",
         "DEUR",
         10
