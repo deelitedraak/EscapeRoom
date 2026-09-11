@@ -20,6 +20,7 @@ class Spelsessie:
     def vraag_hint(self):
         puzzel = self.get_huidige_puzzel()
         aantal_gebruikte_hints = self.gebruikte_hints[self.huidige_puzzel_index]
+        hint = puzzel.get_hint(aantal_gebruikte_hints)
 
         if hint is not None:
             self.gebruikte_hints[self.huidige_puzzel_index] += 1

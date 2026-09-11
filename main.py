@@ -28,6 +28,7 @@ def main():
         "De Vier Wachters",
         "Vier beelden dragen een cijfer en een letter: "
         "Muis D, Baviaan U, Olifant R, Valk E. "
+        "Wanneer de letters in de juiste volgorde staan kan je dit woord openen"
         "Welk woord vormt de sleutel?",
         "DEUR",
         10
@@ -44,7 +45,7 @@ def main():
     )
 
     hint3 = Hint(
-        "Sorteer de wachters op hun nummer en lees daarna de letters.",
+        "Sorteer de wachters op hun grootte en lees daarna de letters.",
         2
     )
 

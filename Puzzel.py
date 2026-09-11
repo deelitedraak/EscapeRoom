@@ -1,5 +1,5 @@
 from Hint import Hint
-from Spelsessie import Spelsessie
+
 
 class Puzzel:
     def __init__(self, titel, opdracht, oplossing, max_punten):
