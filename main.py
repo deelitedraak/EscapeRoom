@@ -1,6 +1,7 @@
 from EscapeRoom import EscapeRoom
 from Puzzel import Puzzel
 from Hint import Hint
+from Spelsessie import Spelsessie
 
 
 def main():
@@ -174,6 +175,26 @@ def main():
     gekozen_room = rooms[keuze - 1]
 
     print(gekozen_room)
+
+    teamnaam = input("bedenk een teamnaam: ")
+    spelsessie = Spelsessie(teamnaam, gekozen_room)
+
+    while not spelsessie.is_afgerond():
+        puzzel = Spelsessie.get_huidige_puzzel
+        print(puzzel)
+
+        print("1. antwoord geven")
+        print("2. Hint vragen")
+
+        actie = input("Kies actie 1 of 2: ")
+        if actie == "1":
+            antwoord = input("Wat is je antwoord: ")
+            correct = Spelsessie.geef_antwoord(antwoord)
+            if correct:
+                print("Correct!")
+            else:
+                print("Helaas, probeer het opnieuw.")
+        elif actie == "2":
 
 
 if __name__ == "__main__":

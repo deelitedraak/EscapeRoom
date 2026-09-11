@@ -40,3 +40,12 @@ class Spelsessie:
 
         else:
             return False
+
+    def is_afgerond(self):
+        return self.huidige_puzzel_index >= len(self.escape_room.get_puzzels())
+
+    def get_voortgang(self):
+        aantal_puzzels = len(self.escape_room.get_puzzels())
+        return self.huidige_puzzel_index / aantal_puzzels * 100
+
+
