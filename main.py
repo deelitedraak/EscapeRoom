@@ -171,8 +171,13 @@ def main():
     for nummer, room in enumerate(rooms, start=1):
         print(f"{nummer}. {room.get_naam()}")
 
-    keuze = int(input("Kies een room: "))
-    gekozen_room = rooms[keuze - 1]
+    while True:
+        keuze = int(input("Kies een room: "))
+        if not 1 <= keuze <= len(rooms):
+            print("Escape room niet gevonden.")
+        else:
+            gekozen_room = rooms[keuze - 1]
+            break
 
     print(gekozen_room)
 
@@ -180,7 +185,7 @@ def main():
     spelsessie = Spelsessie(teamnaam, gekozen_room)
 
     while not spelsessie.is_afgerond():
-        puzzel = Spelsessie.get_huidige_puzzel
+        puzzel = spelsessie.get_huidige_puzzel()
         print(puzzel)
 
         print("1. antwoord geven")
@@ -189,12 +194,26 @@ def main():
         actie = input("Kies actie 1 of 2: ")
         if actie == "1":
             antwoord = input("Wat is je antwoord: ")
-            correct = Spelsessie.geef_antwoord(antwoord)
+            correct = spelsessie.geef_antwoord(antwoord)
             if correct:
                 print("Correct!")
             else:
                 print("Helaas, probeer het opnieuw.")
         elif actie == "2":
+            hint = spelsessie.vraag_hint()
+            if hint is not None:
+                print(hint)
+            else:
+                print("Er zijn geen hints meer beschikbaar")
+        else:
+            print("Ongeldige keuze. Kies 1 of 2.")
+
+        print(f"Score {spelsessie.score}")
+        print(f"Voortgang {spelsessie.get_voortgang():.1f}%")
+        
+    print("Gefeliciteerd! Je bent uit de escape room ontsnapt.")
+    print(f"Score {spelsessie.score}")
+    print(f"Voortgang {spelsessie.get_voortgang():.1f}%")
 
 
 if __name__ == "__main__":
