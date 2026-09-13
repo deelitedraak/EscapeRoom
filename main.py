@@ -196,7 +196,23 @@ def main():
                     print("Voer een geldig geheel getal in.")
 
             nieuwe_room = EscapeRoom(naam, thema, tijdslimiet)
-            titel = input("Titel van de puzzel: ")
+            while True:
+                titel = input("Titel van de puzzel: ")
+                    
+                titel_bestaat = False
+
+                for puzzel in nieuwe_room.get_puzzels():
+                    if puzzel.get_titel().lower() == titel.lower():
+                        titel_bestaat = True
+                if titel.strip() == "":
+                    print("Titel mag niet leeg zijn.")
+
+                elif titel_bestaat:
+                    print("Deze puzzeltitel bestaat al.")
+
+                else:
+                    break
+                                        
             opdracht = input("Opdracht van de puzzel: ")
             oplossing = input("Oplossing van de puzzel: ")
             while True:
