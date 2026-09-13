@@ -2,10 +2,13 @@ from EscapeRoom import EscapeRoom
 from Puzzel import Puzzel
 from Hint import Hint
 from Spelsessie import Spelsessie
+from ScoreResultaat import ScoreResultaat
 
 
 def main():
 
+    scorebord = []
+   
     # Room 1 - De Verloren Tempel
     room1 = EscapeRoom("De Verloren Tempel", "Archeologie en avontuur", 60)
 
@@ -168,52 +171,96 @@ def main():
 
     rooms = [room1, room2, room3]
 
-    for nummer, room in enumerate(rooms, start=1):
-        print(f"{nummer}. {room.get_naam()}")
-
     while True:
-        keuze = int(input("Kies een room: "))
-        if not 1 <= keuze <= len(rooms):
-            print("Escape room niet gevonden.")
-        else:
-            gekozen_room = rooms[keuze - 1]
+        print("1. Escape room ontwerpen")
+        print("2. Escape room spelen")
+        print("3. Scorebord bekijken")
+        print("4. Afsluiten")
+
+        keuze = input("Maak een keuze: ")
+
+        if keuze == "1":
+            print("Ontwerpmodus")
+
+        elif keuze == "2":
+            for nummer, room in enumerate(rooms, start=1):
+                print(f"{nummer}. {room.get_naam()}")
+
+            while True:
+                keuze = int(input("Kies een room: "))
+                if not 1 <= keuze <= len(rooms):
+                    print("Escape room niet gevonden.")
+                else:
+                    gekozen_room = rooms[keuze - 1]
+                    break
+
+            print(f"Je hebt gekozen voor: {gekozen_room.get_naam()}")
+
+            teamnaam = input("bedenk een teamnaam: ")
+            spelsessie = Spelsessie(teamnaam, gekozen_room)
+
+            while not spelsessie.is_afgerond():
+                puzzel = spelsessie.get_huidige_puzzel()
+                print(puzzel)
+
+                print("1. antwoord geven")
+                print("2. Hint vragen")
+
+                actie = input("Kies actie 1 of 2: ")
+                if actie == "1":
+                    antwoord = input("Wat is je antwoord: ")
+                    correct = spelsessie.geef_antwoord(antwoord)
+                    if correct:
+                        print("Correct!")
+                    else:
+                        print("Helaas, probeer het opnieuw.")
+                elif actie == "2":
+                    hint = spelsessie.vraag_hint()
+                    if hint is not None:
+                        print(hint)
+                    else:
+                        print("Er zijn geen hints meer beschikbaar")
+                else:
+                    print("Ongeldige keuze. Kies 1 of 2.")
+
+                print(f"Score {spelsessie.score}")
+                print(f"Voortgang {spelsessie.get_voortgang():.1f}%")
+                
+            print("Gefeliciteerd! Je bent uit de escape room ontsnapt.")
+            print(f"Score {spelsessie.score}")
+            print(f"Voortgang {spelsessie.get_voortgang():.1f}%")
+
+            resultaat = ScoreResultaat(
+                spelsessie.teamnaam,
+                gekozen_room.get_naam(),
+                spelsessie.score
+                )
+            
+            scorebord.append(resultaat)
+
+        elif keuze == "3":
+
+            
+            if len(scorebord) == 0:
+                print("Er zijn nog geen scores")
+            else:
+                gesorteerd_scorebord = sorted(
+                    scorebord,
+                    key=lambda resultaat: (-resultaat.score, resultaat.teamnaam.lower())
+                )
+                
+                for resultaat in gesorteerd_scorebord:
+                    print(resultaat)
+
+
+        elif keuze == "4":
             break
 
-    print(gekozen_room)
-
-    teamnaam = input("bedenk een teamnaam: ")
-    spelsessie = Spelsessie(teamnaam, gekozen_room)
-
-    while not spelsessie.is_afgerond():
-        puzzel = spelsessie.get_huidige_puzzel()
-        print(puzzel)
-
-        print("1. antwoord geven")
-        print("2. Hint vragen")
-
-        actie = input("Kies actie 1 of 2: ")
-        if actie == "1":
-            antwoord = input("Wat is je antwoord: ")
-            correct = spelsessie.geef_antwoord(antwoord)
-            if correct:
-                print("Correct!")
-            else:
-                print("Helaas, probeer het opnieuw.")
-        elif actie == "2":
-            hint = spelsessie.vraag_hint()
-            if hint is not None:
-                print(hint)
-            else:
-                print("Er zijn geen hints meer beschikbaar")
         else:
-            print("Ongeldige keuze. Kies 1 of 2.")
+            print("Ongeldige keuze.")
 
-        print(f"Score {spelsessie.score}")
-        print(f"Voortgang {spelsessie.get_voortgang():.1f}%")
-        
-    print("Gefeliciteerd! Je bent uit de escape room ontsnapt.")
-    print(f"Score {spelsessie.score}")
-    print(f"Voortgang {spelsessie.get_voortgang():.1f}%")
+
+    
 
 
 if __name__ == "__main__":

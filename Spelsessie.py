@@ -1,5 +1,4 @@
 from EscapeRoom import EscapeRoom
-from Puzzel import Puzzel
 
 
 class Spelsessie:
