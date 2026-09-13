@@ -181,8 +181,22 @@ def main():
 
         if keuze == "1":
             print("Ontwerpmodus")
-            naam = input("Naam van de escape room: ")
-            thema = input("Thema van de escape room: ")
+            while True:
+                naam = input("Naam van de escape room: ")
+
+                if naam.strip() == "":
+                    print("Titel mag niet leeg zijn.")
+                else:
+                    break
+
+            while True:
+                thema = input("Thema van de escape room: ")
+
+                if thema.strip() == "":
+                    print("Thema mag niet leeg zijn.")
+                else:
+                    break
+
             while True:
                 try:
                     tijdslimiet = int(input("Tijdslimiet van de escaperoom: "))
