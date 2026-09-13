@@ -212,6 +212,24 @@ def main():
 
                 else:
                     break
+            while True:
+                hint_tekst = input("Tekst van de hint: ")
+
+                if hint_tekst.strip() == "":
+                    print("Tekst mag niet leeg zijn")
+                else:
+                    break
+            while True:
+                try:
+                    strafpunten = int(input("Strafpunten van de hint:"))
+
+                    if 0 <= strafpunten <= max_punten:
+                        break
+                    else:
+                        print("Strafpunten moeten tussen 0 en de maximale punten liggen.")
+                except ValueError:
+                    print("Voer een geldig geheel getal in.")
+
                                         
             opdracht = input("Opdracht van de puzzel: ")
             oplossing = input("Oplossing van de puzzel: ")
