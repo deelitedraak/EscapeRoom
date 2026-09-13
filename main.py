@@ -196,53 +196,89 @@ def main():
                     print("Voer een geldig geheel getal in.")
 
             nieuwe_room = EscapeRoom(naam, thema, tijdslimiet)
+
             while True:
-                titel = input("Titel van de puzzel: ")
-                    
-                titel_bestaat = False
 
-                for puzzel in nieuwe_room.get_puzzels():
-                    if puzzel.get_titel().lower() == titel.lower():
-                        titel_bestaat = True
-                if titel.strip() == "":
-                    print("Titel mag niet leeg zijn.")
+                while True:
+                    titel = input("Titel van de puzzel: ")
 
-                elif titel_bestaat:
-                    print("Deze puzzeltitel bestaat al.")
+                    titel_bestaat = False
 
-                else:
-                    break
-            while True:
-                hint_tekst = input("Tekst van de hint: ")
+                    for puzzel in nieuwe_room.get_puzzels():
+                        if puzzel.get_titel().lower() == titel.lower():
+                            titel_bestaat = True
 
-                if hint_tekst.strip() == "":
-                    print("Tekst mag niet leeg zijn")
-                else:
-                    break
-            while True:
-                try:
-                    strafpunten = int(input("Strafpunten van de hint:"))
+                    if titel.strip() == "":
+                        print("Titel mag niet leeg zijn.")
+                    elif titel_bestaat:
+                        print("Deze puzzeltitel bestaat al.")
+                    else:
+                        break
 
-                    if 0 <= strafpunten <= max_punten:
+                opdracht = input("Opdracht van de puzzel: ")
+                oplossing = input("Oplossing van de puzzel: ")
+
+                while True:
+                    try:
+                        max_punten = int(input("Maximale punten van de puzzel: "))
+
+                        if max_punten > 0:
+                            break
+                        else:
+                            print("Maximale punten moet groter zijn dan 0")
+                    except ValueError:
+                        print("Voer een geldig heel getal in.")
+
+                nieuwe_puzzel = Puzzel(titel, opdracht, oplossing, max_punten)
+
+                while True:
+                    while True:
+                        hint_tekst = input("Tekst van de hint: ")
+
+                        if hint_tekst.strip() == "":
+                            print("Tekst mag niet leeg zijn")
+                        else:
+                            break
+
+                    while True:
+                        try:
+                            strafpunten = int(input("Strafpunten van de hint: "))
+
+                            if 0 <= strafpunten <= max_punten:
+                                break
+                            else:
+                                print("Strafpunten moeten tussen 0 en de maximale punten liggen.")
+                        except ValueError:
+                            print("Voer een geldig geheel getal in.")
+
+                    nieuwe_hint = Hint(hint_tekst, strafpunten)
+                    nieuwe_puzzel.voeg_hint_toe(nieuwe_hint)
+
+                    while True:
+                        nog_een_hint = input("Nog een hint toevoegen? (j/n): ").lower()
+
+                        if nog_een_hint == "j" or nog_een_hint == "n":
+                            break
+                        else:
+                            print("Kies j of n.")
+
+                    if nog_een_hint == "n":
+                        break
+                nieuwe_room.voeg_puzzel_toe(nieuwe_puzzel)
+                if len(nieuwe_room.get_puzzels()) < 2:
+                    print("Een escape room moet minimaal 2 puzzels bevatten.")
+                    continue
+                while True:
+                    nog_een_puzzel = input("Nog een puzzel toevoegen? (j/n): ").lower()
+
+                    if nog_een_puzzel == "j" or nog_een_puzzel == "n":
                         break
                     else:
-                        print("Strafpunten moeten tussen 0 en de maximale punten liggen.")
-                except ValueError:
-                    print("Voer een geldig geheel getal in.")
+                        print("Kies j of n.")
 
-                                        
-            opdracht = input("Opdracht van de puzzel: ")
-            oplossing = input("Oplossing van de puzzel: ")
-            while True:
-                try:
-                    max_punten = int(input("Maximale punten van de puzzel: "))
-                    if max_punten > 0:
-                        break
-                    else: print("Maximale punten moet groter zijn dan 0")
-                except ValueError:
-                    print("Voer een geldig heel getal in.")
-            nieuwe_puzzel = Puzzel(titel, opdracht, oplossing, max_punten)
-
+                if nog_een_puzzel == "n":
+                    break
+            rooms.append(nieuwe_room)
 
         elif keuze == "2":
             for nummer, room in enumerate(rooms, start=1):
