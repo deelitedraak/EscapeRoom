@@ -181,6 +181,34 @@ def main():
 
         if keuze == "1":
             print("Ontwerpmodus")
+            naam = input("Naam van de escape room: ")
+            thema = input("Thema van de escape room: ")
+            while True:
+                try:
+                    tijdslimiet = int(input("Tijdslimiet van de escaperoom: "))
+
+                    if tijdslimiet > 0:
+                        break
+                    else:
+                        print("Tijdslimiet moet groter zijn dan 0.")
+
+                except ValueError:
+                    print("Voer een geldig geheel getal in.")
+
+            nieuwe_room = EscapeRoom(naam, thema, tijdslimiet)
+            titel = input("Titel van de puzzel: ")
+            opdracht = input("Opdracht van de puzzel: ")
+            oplossing = input("Oplossing van de puzzel: ")
+            while True:
+                try:
+                    max_punten = int(input("Maximale punten van de puzzel: "))
+                    if max_punten > 0:
+                        break
+                    else: print("Maximale punten moet groter zijn dan 0")
+                except ValueError:
+                    print("Voer een geldig heel getal in.")
+            nieuwe_puzzel = Puzzel(titel, opdracht, oplossing, max_punten)
+
 
         elif keuze == "2":
             for nummer, room in enumerate(rooms, start=1):
