@@ -185,7 +185,7 @@ def main():
                 naam = input("Naam van de escape room: ")
 
                 if naam.strip() == "":
-                    print("Titel mag niet leeg zijn.")
+                    print("Naam mag niet leeg zijn.")
                 else:
                     break
 
@@ -245,12 +245,22 @@ def main():
 
                 nieuwe_puzzel = Puzzel(titel, opdracht, oplossing, max_punten)
 
+                totaal_strafpunten = 0
+
                 while True:
+                    hint_keuze = input("Hint toevoegen? (j/n): ").lower()
+
+                    if hint_keuze == "n":
+                        break
+                    elif hint_keuze != "j":
+                        print("Kies j of n.")
+                        continue
+
                     while True:
                         hint_tekst = input("Tekst van de hint: ")
 
                         if hint_tekst.strip() == "":
-                            print("Tekst mag niet leeg zijn")
+                            print("Tekst mag niet leeg zijn.")
                         else:
                             break
 
@@ -258,26 +268,17 @@ def main():
                         try:
                             strafpunten = int(input("Strafpunten van de hint: "))
 
-                            if 0 <= strafpunten <= max_punten:
+                            if 0 <= strafpunten <= max_punten - totaal_strafpunten:
                                 break
                             else:
-                                print("Strafpunten moeten tussen 0 en de maximale punten liggen.")
+                                print("De totale strafpunten mogen niet hoger zijn dan de maximale punten.")
                         except ValueError:
                             print("Voer een geldig geheel getal in.")
 
                     nieuwe_hint = Hint(hint_tekst, strafpunten)
                     nieuwe_puzzel.voeg_hint_toe(nieuwe_hint)
+                    totaal_strafpunten += strafpunten
 
-                    while True:
-                        nog_een_hint = input("Nog een hint toevoegen? (j/n): ").lower()
-
-                        if nog_een_hint == "j" or nog_een_hint == "n":
-                            break
-                        else:
-                            print("Kies j of n.")
-
-                    if nog_een_hint == "n":
-                        break
                 nieuwe_room.voeg_puzzel_toe(nieuwe_puzzel)
                 if len(nieuwe_room.get_puzzels()) < 2:
                     print("Een escape room moet minimaal 2 puzzels bevatten.")
@@ -293,6 +294,61 @@ def main():
                 if nog_een_puzzel == "n":
                     break
             rooms.append(nieuwe_room)
+
+            while True:
+                test_keuze = input("Nieuwe room direct testen? (j/n): ").lower()
+
+                if test_keuze == "j" or test_keuze == "n":
+                    break
+                else:
+                    print("Kies j of n.")
+
+            if test_keuze == "j":
+                test_teamnaam = input("Naam van het testteam: ")
+                test_sessie = Spelsessie(test_teamnaam, nieuwe_room)
+
+                while not test_sessie.is_afgerond():
+                    puzzel = test_sessie.get_huidige_puzzel()
+                    print(puzzel)
+
+                    print("1. antwoord geven")
+                    print("2. Hint vragen")
+
+                    actie = input("Kies actie 1 of 2: ")
+
+                    if actie == "1":
+                        antwoord = input("Wat is je antwoord: ")
+                        correct = test_sessie.geef_antwoord(antwoord)
+
+                        if correct:
+                            print("Correct!")
+                        else:
+                            print("Helaas, probeer het opnieuw.")
+
+                    elif actie == "2":
+                        hint = test_sessie.vraag_hint()
+
+                        if hint is not None:
+                            print(hint)
+                        else:
+                            print("Er zijn geen hints meer beschikbaar.")
+
+                    else:
+                        print("Ongeldige keuze. Kies 1 of 2.")
+
+                    print(f"Score {test_sessie.score}")
+                    print(f"Voortgang {test_sessie.get_voortgang():.1f}%")
+
+                print("Testsessie afgerond!")
+                print(f"Score {test_sessie.score}")
+
+                resultaat = ScoreResultaat(
+                    test_sessie.teamnaam,
+                    nieuwe_room.get_naam(),
+                    test_sessie.score
+                )
+
+                scorebord.append(resultaat)
 
         elif keuze == "2":
             for nummer, room in enumerate(rooms, start=1):
