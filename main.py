@@ -3,6 +3,7 @@ from Puzzel import Puzzel
 from Hint import Hint
 from Spelsessie import Spelsessie
 from ScoreResultaat import ScoreResultaat
+from Spelrapport import Spelrapport
 
 
 def main():
@@ -349,6 +350,8 @@ def main():
                 )
 
                 scorebord.append(resultaat)
+                rapport = Spelrapport(test_sessie)
+                rapport.genereer_pdf(f"spelrapport_{test_sessie.teamnaam}.pdf")
 
         elif keuze == "2":
             for nummer, room in enumerate(rooms, start=1):
@@ -405,6 +408,8 @@ def main():
                 )
             
             scorebord.append(resultaat)
+            rapport = Spelrapport(spelsessie)
+            rapport.genereer_pdf(f"spelrapport_{spelsessie.teamnaam}.pdf")
 
         elif keuze == "3":
 
