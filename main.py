@@ -192,7 +192,7 @@ def main():
         if keuze == "1":
             print("Ontwerpmodus")
             while True:
-                naam = input("Naam van de escape room: ").strip
+                naam = input("Naam van de escape room: ").strip()
 
                 if naam == "":
                     print("Naam mag niet leeg zijn.")
