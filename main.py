@@ -4,11 +4,14 @@ from Hint import Hint
 from Spelsessie import Spelsessie
 from ScoreResultaat import ScoreResultaat
 from Spelrapport import Spelrapport
-
+from Database import Database
 
 def main():
 
-    scorebord = []
+    database = Database("escaperoom.db")
+    database.initialiseer()
+
+    scorebord = database.laad_scorebord()
    
     # Room 1 - De Verloren Tempel
     room1 = EscapeRoom("De Verloren Tempel", "Archeologie en avontuur", 60)
@@ -170,7 +173,13 @@ def main():
     room3.voeg_puzzel_toe(puzzel9)
 
 
-    rooms = [room1, room2, room3]
+    standaard_rooms = [room1, room2, room3]
+
+    for room in standaard_rooms:
+        if not database.room_bestaat(room.get_naam()):
+            database.sla_room_op(room)
+
+    rooms = database.laad_rooms()
 
     while True:
         print("1. Escape room ontwerpen")
@@ -350,6 +359,7 @@ def main():
                 )
 
                 scorebord.append(resultaat)
+                database.sla_score_op(resultaat)
                 rapport = Spelrapport(test_sessie)
                 rapport.genereer_pdf(f"spelrapport_{test_sessie.teamnaam}.pdf")
 
@@ -408,6 +418,7 @@ def main():
                 )
             
             scorebord.append(resultaat)
+            database.sla_score_op(resultaat)
             rapport = Spelrapport(spelsessie)
             rapport.genereer_pdf(f"spelrapport_{spelsessie.teamnaam}.pdf")
 
