@@ -192,9 +192,9 @@ def main():
         if keuze == "1":
             print("Ontwerpmodus")
             while True:
-                naam = input("Naam van de escape room: ")
+                naam = input("Naam van de escape room: ").strip
 
-                if naam.strip() == "":
+                if naam == "":
                     print("Naam mag niet leeg zijn.")
                 elif database.room_bestaat(naam):
                     print("Er bestaat al een escape room met deze naam.")
