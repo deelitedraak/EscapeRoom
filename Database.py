@@ -65,7 +65,7 @@ class Database:
         cursor.execute("""
             SELECT id
             FROM escape_room
-            WHERE naam = ?
+            WHERE naam = ?  COLLATE NOCASE
             LIMIT 1
         """, (roomnaam,))
 

@@ -196,6 +196,8 @@ def main():
 
                 if naam.strip() == "":
                     print("Naam mag niet leeg zijn.")
+                elif database.room_bestaat(naam):
+                    print("Er bestaat al een escape room met deze naam.")
                 else:
                     break
 
@@ -304,6 +306,7 @@ def main():
                 if nog_een_puzzel == "n":
                     break
             rooms.append(nieuwe_room)
+            database.sla_room_op(nieuwe_room)
 
             while True:
                 test_keuze = input("Nieuwe room direct testen? (j/n): ").lower()
